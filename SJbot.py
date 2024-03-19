@@ -3,15 +3,15 @@ from pyrogram.types import *
 from pyrogram.errors.exceptions import *
 
 
-from Function.db import *
-from Function.keyboards import *
-from Function.qr import *
-from Function.search import *
-from Function.admins import *
-from Function.users import *
-from Function.nodes import *
-from Function.create import *
-from Function.stase import *
+from Functions.db import *
+from Functions.keyboards import *
+from Functions.qr import *
+from Functions.search import *
+from Functions.admins import *
+from Functions.users import *
+from Functions.nodes import *
+from Functions.create import *
+from Functions.stase import *
 
 from datetime import datetime
 import re , os
