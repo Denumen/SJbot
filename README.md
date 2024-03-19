@@ -1,3 +1,3 @@
 # SJbot
 
-cd / && rm -rf ./SJbot.sh && rm -rf /SJbot || true && sudo apt install && sudo apt-get install libjpeg-dev && git clone https://github.com/Denumen/SJbot.git && mv ./SJbot/SJbot.sh ./SJbot.sh && chmod +x SJbot.sh && ./SJbot.sh && cd ./SJbot
+cd / && rm -rf ./SJbot.sh && rm -rf /SJbot || true && sudo apt install && sudo apt-get install libjpeg-dev && git clone https://github.com/Denumen/SJbot.git && mv ./SJbot/SJbot.sh ./SJbot.sh && chmod +x SJbot.sh && ./SJbot.sh && rm -rf /SJbot.sh && cd ./SJbot
