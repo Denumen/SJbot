@@ -4,6 +4,7 @@ cd /
 
 sudo apt-get update
 sudo apt-get install -y python3-dev
+pip3 install -U pyrogram
 sudo apt-get install -y libsqlite3-dev
 sudo apt install build-essential
 
@@ -86,13 +87,20 @@ source hold/bin/activate
 pip install -U pyrogram tgcrypto requests Pillow qrcode[pil] persiantools pytz python-dateutil pysqlite3 cdifflib reportlab
 sudo apt-get install sqlite3
 
-read -p "Please enter name (nickname) : " name
-read -p "Please enter telegram chatid : " chatid
-read -p "Please enter telegram bot token: " token
-read -p "Please enter panel sudo username : " user
-read -p "Please enter panel sudo password : " password
-read -p "Please enter panel domain (like: sub.domian.com:port) : " domain
-read -p "Do you have SSL? (y/n): " ssl_response
+#read -p "Please enter name (nickname) : " name
+#read -p "Please enter telegram chatid : " chatid
+#read -p "Please enter telegram bot token: " token
+#read -p "Please enter panel sudo username : " user
+#read -p "Please enter panel sudo password : " password
+#read -p "Please enter panel domain (like: sub.domian.com:port) : " domain
+#read -p "Do you have SSL? (y/n): " ssl_response
+
+name='mehdi'
+chatid='5038952647'
+token='6995765932:AAEkdyVKQOY8cT_zHApRH567hxb-_uAdkdU'
+user='dfg392gt'
+password='q31Kt1H3r3N2'
+domain='feed.farsroid.tech:2087'
 
 if [[ $ssl_response == "y" ]]; then
     domain="https://$domain"
