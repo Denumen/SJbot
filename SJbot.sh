@@ -116,16 +116,16 @@ CREATE TABLE templates
      data INTEGER,
      date INTEGER,
      proxies TEXT,
-     inbounds TEXT);
-     price INTEGER,
+     inbounds TEXT,
+     price INTEGER);
 
 CREATE TABLE accounts
     (chatid INTEGER PRIMARY KEY,
-     username TEXT,
+     username TEXT);
 
 CREATE TABLE starters
     (chatid INTEGER PRIMARY KEY,
-     customerid INTEGER,
+     customerid INTEGER);
 
 CREATE TABLE users
     (chatid INTEGER PRIMARY KEY,
@@ -134,15 +134,15 @@ CREATE TABLE users
      username TEXT,
      password TEXT,
      domain TEXT,
-     step TEXT);
-     credit INTEGER,
+     step TEXT,
+     credit INTEGER);
 
 CREATE TABLE IF NOT EXISTS messages
     (chatid INTEGER PRIMARY KEY,
     status TEXT);
 
 INSERT INTO messages (chatid, status) VALUES ('$chatid', 'off');
-INSERT INTO users (chatid, role, name, username, password, domain, step) VALUES ('$chatid', 'boss', '$name', '$user', '$password', '$domain', 'None', '0');
+INSERT INTO users (chatid, role, name, username, password, domain, step, credit) VALUES ('$chatid', 'boss', '$name', '$user', '$password', '$domain', 'None', '0');
 INSERT INTO monitoring (chatid, status, check_normal, check_error) VALUES ('$chatid', 'on', '10', '100');
 INSERT INTO bot (chatid, token) VALUES ("$chatid", "$token");
 INSERT INTO accounts (chatid, username) VALUES ("$chatid", "dummybot");
