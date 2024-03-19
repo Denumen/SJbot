@@ -72,11 +72,12 @@ if ps aux | grep -v grep | grep "python3 limiteder.py" &> /dev/null; then
     pkill -f "python3 limiteder.py"
 fi
 
+rm -rf ./SJbot
 cd /
+mkdir ./SJbot
+cd ./SJbot
 
 git clone https://github.com/Denumen/SJbot.git .
-
-cd ./SJbot
 
 sudo apt install -y python3.10-venv
 python3 -m venv hold
@@ -99,7 +100,7 @@ else
     domain="http://$domain"
 fi
 
-sqlite3 SJbot.db <<EOF
+sqlite3 /SJbot/SJbot.db <<EOF
 CREATE TABLE bot
     (chatid INTEGER PRIMARY KEY,
      token TEXT);
