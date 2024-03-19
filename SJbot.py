@@ -12,18 +12,17 @@ from Functions.users import *
 from Functions.nodes import *
 from Functions.create import *
 from Functions.stase import *
-
+import subprocess
 from datetime import datetime
 import re , os
 
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
-
 app = Client( 
     "SJbot",      
-    api_id=7147988373,
-    api_hash="AAETv48_tAvpIGwRJXmG_CLGnBrs_ipDURg",
+    api_id=25549830,
+    api_hash="cdbe38e0f81407dc58f53e72f4480980",
     bot_token=DEF_GET_BOT_TOKEN()) #from db , bot table
 
 @app.on_message(filters.private)
@@ -192,7 +191,7 @@ async def SJbot(client: Client, message: Message) :
                                 sql_command = f"INSERT INTO users (chatid, role, name, username, password, domain, step, credit) VALUES ({USERNAME}, 'marketer', 'marketers', 'rasa', 'Amin@123', 'feed.downloadha.tech:2087', 'None', {MESSAGE_TEXT});"
 
                                 # Execute the SQL command using the subprocess module
-                                subprocess.run(['sqlite3', '/SJbotbeta/SJbot.db', sql_command], check=True)
+                                subprocess.run(['sqlite3', '/SJbot/SJbot.db', sql_command], check=True)
                                 #await client.send_message(chat_id=MESSAGE_CHATID , text="<b>charge shod.\nمثال : <code>1</code>, <code>15</code>, <code>75</code>, <code>150</code></b>" , reply_markup=KEYBOARD_CANCEL , parse_mode=enums.ParseMode.HTML)
 
                                 await client.send_message(chat_id=MESSAGE_CHATID , text=f"تبریک میگم ! نماینده فروش شما با موفقیت اضافه شد." , reply_markup=KEYBOARD_HOME , parse_mode=enums.ParseMode.HTML)
@@ -235,7 +234,7 @@ async def SJbot(client: Client, message: Message) :
                                 sql_command = f"UPDATE users SET Credit = Credit - {MESSAGE_TEXT} WHERE chatid = {USERNAME};"
 
                                 # Execute the SQL command using the subprocess module
-                                subprocess.run(['sqlite3', '/SJbotbeta/SJbot.db', sql_command], check=True)
+                                subprocess.run(['sqlite3', '/SJbot/SJbot.db', sql_command], check=True)
                                 #await client.send_message(chat_id=MESSAGE_CHATID , text="<b>charge shod.\nمثال : <code>1</code>, <code>15</code>, <code>75</code>, <code>150</code></b>" , reply_markup=KEYBOARD_CANCEL , parse_mode=enums.ParseMode.HTML)
 
                                 await client.send_message(chat_id=MESSAGE_CHATID , text=f"Charge shod" , reply_markup=KEYBOARD_HOME , parse_mode=enums.ParseMode.HTML)
@@ -533,7 +532,7 @@ async def SJbot(client: Client, message: Message) :
                                 # Construct the SQL command to retrieve the user's credit
                                 sql_command_credit = f"SELECT Credit FROM users WHERE chatid = {MESSAGE_CHATID};"
                                 # Execute the SQL command to retrieve the user's credit using the subprocess module
-                                credit_output = subprocess.check_output(['sqlite3', 'SJbot.db', sql_command_credit])
+                                credit_output = subprocess.check_output(['sqlite3', '/SJbot/SJbot.db', sql_command_credit])
                                 user_credit = float(credit_output.decode().strip())
                                 # Check if user's credit is sufficient
                                 if float(user_credit) >= float(PRICE):
@@ -547,7 +546,7 @@ async def SJbot(client: Client, message: Message) :
                                         sql_command = f"UPDATE users SET Credit = Credit - {PRICE} WHERE chatid = {MESSAGE_CHATID};"
 
                                         # Execute the SQL command using the subprocess module
-                                        subprocess.run(['sqlite3', '/SJbotbeta/SJbot.db', sql_command], check=True)
+                                        subprocess.run(['sqlite3', '/SJbot/SJbot.db', sql_command], check=True)
 
                                         UPDATE_STEP = DEF_UPDATE_STEP(MESSAGE_CHATID,"None")
                                     else :
@@ -563,7 +562,7 @@ async def SJbot(client: Client, message: Message) :
                                     # Construct the SQL command to retrieve the user's credit
                                     sql_command_credit = f"SELECT Credit FROM users WHERE chatid = {MESSAGE_CHATID};"
                                     # Execute the SQL command to retrieve the user's credit using the subprocess module
-                                    credit_output = subprocess.check_output(['sqlite3', 'SJbot.db', sql_command_credit])
+                                    credit_output = subprocess.check_output(['sqlite3', '/SJbot/SJbot.db', sql_command_credit])
                                     user_credit = float(credit_output.decode().strip())
                                     # Check if user's credit is sufficient
                                     if float(user_credit) >= float(PRICE):
@@ -577,7 +576,7 @@ async def SJbot(client: Client, message: Message) :
                                             sql_command = f"UPDATE users SET Credit = Credit - {PRICE} WHERE chatid = {MESSAGE_CHATID};"
 
                                             # Execute the SQL command using the subprocess module
-                                            subprocess.run(['sqlite3', '/SJbotbeta/SJbot.db', sql_command], check=True)
+                                            subprocess.run(['sqlite3', '/SJbot/SJbot.db', sql_command], check=True)
                                         
                                         else :
                                             await client.send_message(chat_id=MESSAGE_CHATID , text=USER_SUB , reply_markup=KEYBOARD_HOME , parse_mode=enums.ParseMode.HTML)
@@ -670,7 +669,7 @@ async def SJbot(client: Client, message: Message) :
                 sql_command = f"SELECT Credit FROM users WHERE chatid = '{MESSAGE_CHATID}';"
 
                 # Execute the SQL command using the subprocess module
-                result = subprocess.run(['sqlite3', '/SJbotbeta/SJbot.db', sql_command], capture_output=True, text=True)
+                result = subprocess.run(['sqlite3', '/SJbot/SJbot.db', sql_command], capture_output=True, text=True)
 
                 # Extract the output from the result
                 output = result.stdout.strip()
@@ -802,7 +801,7 @@ async def SJbot(client: Client, message: Message) :
                                 sql_command = f"INSERT INTO users (chatid, role, name, username, password, domain, step, credit) VALUES ({USERNAME}, 'marketer', 'marketers', 'rasa', 'Amin@123', 'feed.downloadha.tech:2087', 'None', {MESSAGE_TEXT});"
 
                                 # Execute the SQL command using the subprocess module
-                                subprocess.run(['sqlite3', '/SJbotbeta/SJbot.db', sql_command], check=True)
+                                subprocess.run(['sqlite3', '/SJbot/SJbot.db', sql_command], check=True)
                                 #await client.send_message(chat_id=MESSAGE_CHATID , text="<b>charge shod.\nمثال : <code>1</code>, <code>15</code>, <code>75</code>, <code>150</code></b>" , reply_markup=KEYBOARD_CANCEL , parse_mode=enums.ParseMode.HTML)
 
                                 await client.send_message(chat_id=MESSAGE_CHATID , text=f"تبریک میگم ! نماینده فروش شما با موفقیت اضافه شد." , reply_markup=KEYBOARD_HOME_MARKETER , parse_mode=enums.ParseMode.HTML)
@@ -845,7 +844,7 @@ async def SJbot(client: Client, message: Message) :
                                 sql_command = f"UPDATE users SET Credit = Credit - {MESSAGE_TEXT} WHERE chatid = {USERNAME};"
 
                                 # Execute the SQL command using the subprocess module
-                                subprocess.run(['sqlite3', '/SJbotbeta/SJbot.db', sql_command], check=True)
+                                subprocess.run(['sqlite3', '/SJbot/SJbot.db', sql_command], check=True)
                                 #await client.send_message(chat_id=MESSAGE_CHATID , text="<b>charge shod.\nمثال : <code>1</code>, <code>15</code>, <code>75</code>, <code>150</code></b>" , reply_markup=KEYBOARD_CANCEL , parse_mode=enums.ParseMode.HTML)
 
                                 await client.send_message(chat_id=MESSAGE_CHATID , text=f"Charge shod" , reply_markup=KEYBOARD_HOME_MARKETER , parse_mode=enums.ParseMode.HTML)
@@ -1143,7 +1142,7 @@ async def SJbot(client: Client, message: Message) :
                                 # Construct the SQL command to retrieve the user's credit
                                 sql_command_credit = f"SELECT Credit FROM users WHERE chatid = {MESSAGE_CHATID};"
                                 # Execute the SQL command to retrieve the user's credit using the subprocess module
-                                credit_output = subprocess.check_output(['sqlite3', 'SJbot.db', sql_command_credit])
+                                credit_output = subprocess.check_output(['sqlite3', '/SJbot/SJbot.db', sql_command_credit])
                                 user_credit = float(credit_output.decode().strip())
                                 # Check if user's credit is sufficient
                                 if float(user_credit) >= float(PRICE):
@@ -1157,10 +1156,10 @@ async def SJbot(client: Client, message: Message) :
                                         sql_command = f"UPDATE users SET Credit = Credit - {PRICE} WHERE chatid = {MESSAGE_CHATID};"
 
                                         # Execute the SQL command using the subprocess module
-                                        subprocess.run(['sqlite3', '/SJbotbeta/SJbot.db', sql_command], check=True)
+                                        subprocess.run(['sqlite3', '/SJbot/SJbot.db', sql_command], check=True)
 
-                                        sql_command = f"INSERT INTO accounts (tele_id, username) VALUES ({MESSAGE_CHATID}, '{USERNAME}');"
-                                        subprocess.run(['sqlite3', '/SJbotbeta/SJbot.db', sql_command], check=True)
+                                        sql_command = f"INSERT INTO accounts (chatid, username) VALUES ({MESSAGE_CHATID}, '{USERNAME}');"
+                                        subprocess.run(['sqlite3', '/SJbot/SJbot.db', sql_command], check=True)
 
                                         UPDATE_STEP = DEF_UPDATE_STEP(MESSAGE_CHATID,"None")
                                     else :
@@ -1178,7 +1177,7 @@ async def SJbot(client: Client, message: Message) :
                                     # Construct the SQL command to retrieve the user's credit
                                     sql_command_credit = f"SELECT Credit FROM users WHERE chatid = {MESSAGE_CHATID};"
                                     # Execute the SQL command to retrieve the user's credit using the subprocess module
-                                    credit_output = subprocess.check_output(['sqlite3', 'SJbot.db', sql_command_credit])
+                                    credit_output = subprocess.check_output(['sqlite3', '/SJbot/SJbot.db', sql_command_credit])
                                     user_credit = float(credit_output.decode().strip())
                                     # Check if user's credit is sufficient
                                     if float(user_credit) >= float(PRICE):
@@ -1192,9 +1191,9 @@ async def SJbot(client: Client, message: Message) :
                                             sql_command = f"UPDATE users SET Credit = Credit - {PRICE} WHERE chatid = {MESSAGE_CHATID};"
 
                                             # Execute the SQL command using the subprocess module
-                                            subprocess.run(['sqlite3', '/SJbotbeta/SJbot.db', sql_command], check=True)
-                                            sql_command = f"INSERT INTO accounts (tele_id, username) VALUES ({MESSAGE_CHATID}, '{USERNAME}');"
-                                            subprocess.run(['sqlite3', '/SJbotbeta/SJbot.db', sql_command], check=True)
+                                            subprocess.run(['sqlite3', '/SJbot/SJbot.db', sql_command], check=True)
+                                            sql_command = f"INSERT INTO accounts (chatid, username) VALUES ({MESSAGE_CHATID}, '{USERNAME}');"
+                                            subprocess.run(['sqlite3', '/SJbot/SJbot.db', sql_command], check=True)
 
                                         else :
                                             await client.send_message(chat_id=MESSAGE_CHATID , text=USER_SUB , reply_markup=KEYBOARD_HOME_MARKETER , parse_mode=enums.ParseMode.HTML)
@@ -1406,7 +1405,7 @@ async def SJbot(client: Client, message: Message) :
                                 sql_command = f"INSERT INTO users (chatid, role, name, username, password, domain, step, credit) VALUES ({USERNAME}, 'marketer', 'marketers', 'rasa', 'Amin@123', 'feed.downloadha.tech:2087', 'None', {MESSAGE_TEXT});"
 
                                 # Execute the SQL command using the subprocess module
-                                subprocess.run(['sqlite3', '/SJbotbeta/SJbot.db', sql_command], check=True)
+                                subprocess.run(['sqlite3', '/SJbot/SJbot.db', sql_command], check=True)
                                 #await client.send_message(chat_id=MESSAGE_CHATID , text="<b>charge shod.\nمثال : <code>1</code>, <code>15</code>, <code>75</code>, <code>150</code></b>" , reply_markup=KEYBOARD_CANCEL , parse_mode=enums.ParseMode.HTML)
 
                                 await client.send_message(chat_id=MESSAGE_CHATID , text=f"تبریک میگم ! نماینده فروش شما با موفقیت اضافه شد." , reply_markup=KEYBOARD_HOME_ADMIN , parse_mode=enums.ParseMode.HTML)
@@ -1449,7 +1448,7 @@ async def SJbot(client: Client, message: Message) :
                                 sql_command = f"UPDATE users SET Credit = Credit - {MESSAGE_TEXT} WHERE chatid = {USERNAME};"
 
                                 # Execute the SQL command using the subprocess module
-                                subprocess.run(['sqlite3', '/SJbotbeta/SJbot.db', sql_command], check=True)
+                                subprocess.run(['sqlite3', '/SJbot/SJbot.db', sql_command], check=True)
                                 #await client.send_message(chat_id=MESSAGE_CHATID , text="<b>charge shod.\nمثال : <code>1</code>, <code>15</code>, <code>75</code>, <code>150</code></b>" , reply_markup=KEYBOARD_CANCEL , parse_mode=enums.ParseMode.HTML)
 
                                 await client.send_message(chat_id=MESSAGE_CHATID , text=f"Charge shod" , reply_markup=KEYBOARD_HOME_ADMIN , parse_mode=enums.ParseMode.HTML)
@@ -1747,7 +1746,7 @@ async def SJbot(client: Client, message: Message) :
                                 # Construct the SQL command to retrieve the user's credit
                                 sql_command_credit = f"SELECT Credit FROM users WHERE chatid = {MESSAGE_CHATID};"
                                 # Execute the SQL command to retrieve the user's credit using the subprocess module
-                                credit_output = subprocess.check_output(['sqlite3', 'SJbot.db', sql_command_credit])
+                                credit_output = subprocess.check_output(['sqlite3', '/SJbot/SJbot.db', sql_command_credit])
                                 user_credit = float(credit_output.decode().strip())
                                 # Check if user's credit is sufficient
                                 if float(user_credit) >= float(PRICE):
@@ -1761,7 +1760,7 @@ async def SJbot(client: Client, message: Message) :
                                         sql_command = f"UPDATE users SET Credit = Credit - {PRICE} WHERE chatid = {MESSAGE_CHATID};"
 
                                         # Execute the SQL command using the subprocess module
-                                        subprocess.run(['sqlite3', '/SJbotbeta/SJbot.db', sql_command], check=True)
+                                        subprocess.run(['sqlite3', '/SJbot/SJbot.db', sql_command], check=True)
 
                                         UPDATE_STEP = DEF_UPDATE_STEP(MESSAGE_CHATID,"None")
                                     else :
@@ -1777,7 +1776,7 @@ async def SJbot(client: Client, message: Message) :
                                     # Construct the SQL command to retrieve the user's credit
                                     sql_command_credit = f"SELECT Credit FROM users WHERE chatid = {MESSAGE_CHATID};"
                                     # Execute the SQL command to retrieve the user's credit using the subprocess module
-                                    credit_output = subprocess.check_output(['sqlite3', 'SJbot.db', sql_command_credit])
+                                    credit_output = subprocess.check_output(['sqlite3', '/SJbot/SJbot.db', sql_command_credit])
                                     user_credit = float(credit_output.decode().strip())
                                     # Check if user's credit is sufficient
                                     if float(user_credit) >= float(PRICE):
@@ -1791,7 +1790,7 @@ async def SJbot(client: Client, message: Message) :
                                             sql_command = f"UPDATE users SET Credit = Credit - {PRICE} WHERE chatid = {MESSAGE_CHATID};"
 
                                             # Execute the SQL command using the subprocess module
-                                            subprocess.run(['sqlite3', '/SJbotbeta/SJbot.db', sql_command], check=True)
+                                            subprocess.run(['sqlite3', '/SJbot/SJbot.db', sql_command], check=True)
                                         
                                         else :
                                             await client.send_message(chat_id=MESSAGE_CHATID , text=USER_SUB , reply_markup=KEYBOARD_HOME_ADMIN , parse_mode=enums.ParseMode.HTML)
@@ -1854,22 +1853,28 @@ async def SJbot(client: Client, message: Message) :
 
 
             teleID = int(MESSAGE_CHATID)
-            # Check if message_id is not in starters tele_id
-            sql_query = f"SELECT COUNT(*) FROM starters WHERE tele_id = {MESSAGE_CHATID};"
-            result = subprocess.run(['sqlite3', '/SJbotbeta/SJbot.db', sql_query], capture_output=True, text=True)
-            if int(result.stdout.strip()) == 0:  # If message_id is not found in starters tele_id
+            # Check if message_id is not in starters chatid
+            sql_query = f"SELECT COUNT(*) FROM starters WHERE chatid = {MESSAGE_CHATID};"
+            result = subprocess.run(['sqlite3', '/SJbot/SJbot.db', sql_query], capture_output=True, text=True)
 
-                sql_query = "SELECT customer_id FROM starters ORDER BY customer_id DESC LIMIT 1;"
-                result = subprocess.run(['sqlite3', '/SJbotbeta/SJbot.db', sql_query], capture_output=True, text=True)
-                last_customer_id = int(result.stdout.strip())
-                # Increment the last customer_id by one to generate the next customer_id
-                next_customer_id = last_customer_id + 1
-                # Construct and execute the SQL command to insert the next customer_id
-                sql_command = f"INSERT INTO starters (tele_id, customer_id) VALUES ({teleID}, {next_customer_id});"
-                subprocess.run(['sqlite3', '/SJbotbeta/SJbot.db', sql_command], check=True)
+            # Check if the result is not an empty string
+            if result.stdout.strip():
+                count = int(result.stdout.strip())
+                if count == 0:
+                    sql_query = "SELECT customerid FROM starters ORDER BY customerid DESC LIMIT 1;"
+                    result = subprocess.run(['sqlite3', '/SJbot/SJbot.db', sql_query], capture_output=True, text=True)
+                    last_customerid = int(result.stdout.strip())
+                    # Increment the last customerid by one to generate the next customerid
+                    next_customerid = last_customerid + 1
+                    # Construct and execute the SQL command to insert the next customerid
+                    sql_command = f"INSERT INTO starters (chatid, customerid) VALUES ({teleID}, {next_customerid});"
+                    subprocess.run(['sqlite3', '/SJbot/SJbot.db', sql_command], check=True)
 
-                TEXT = f"<b>hello your customer ID is {next_customer_id} for being a marketer please dm @suppvm </b>"
-                await client.send_message(chat_id=MESSAGE_CHATID , text=TEXT , reply_markup=KEYBOARD_PRIVATE_MESSAGE2 , parse_mode=enums.ParseMode.HTML , disable_web_page_preview=True)
+                    TEXT = f"<b>hello your customer ID is {next_customerid} for being a marketer please dm @suppvm </b>"
+                    await client.send_message(chat_id=MESSAGE_CHATID , text=TEXT , reply_markup=KEYBOARD_PRIVATE_MESSAGE2 , parse_mode=enums.ParseMode.HTML , disable_web_page_preview=True)
+                else:
+                    TEXT = f"for being a marketer please dm @suppvm </b>"
+                    await client.send_message(chat_id=MESSAGE_CHATID , text=TEXT , reply_markup=KEYBOARD_PRIVATE_MESSAGE2 , parse_mode=enums.ParseMode.HTML , disable_web_page_preview=True)
 
             else:
                 TEXT = f"for being a marketer please dm @suppvm </b>"
