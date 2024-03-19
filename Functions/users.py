@@ -1,7 +1,7 @@
 from reportlab.lib.pagesizes import A4
 from reportlab.lib import colors
 from reportlab.platypus import SimpleDocTemplate, Table, TableStyle
-from Function.db import *
+from Functions.db import *
 from datetime import datetime
 import requests , pytz , uuid
 

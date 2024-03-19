@@ -1,5 +1,5 @@
 import requests , re , pytz
-from Function.db import *
+from Functions.db import *
 from persiantools.jdatetime import JalaliDateTime
 from difflib import SequenceMatcher
 from datetime import datetime, timezone

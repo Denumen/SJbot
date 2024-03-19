@@ -1,4 +1,4 @@
-from Function.db import *
+from Functions.db import *
 from difflib import SequenceMatcher
 import requests
 import subprocess

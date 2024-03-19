@@ -1,5 +1,5 @@
 from pyrogram.types import *
-from Function.db import *
+from Functions.db import *
 
 
 KEYBOARD_HOME_ADMIN = ReplyKeyboardMarkup([[KeyboardButton("🚀 ساخت کاربر")],
