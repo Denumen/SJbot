@@ -12,6 +12,7 @@ from Functions.users import *
 from Functions.nodes import *
 from Functions.create import *
 from Functions.stase import *
+from Functions.custom import *
 import subprocess
 from datetime import datetime
 import re , os
@@ -663,7 +664,7 @@ async def SJbot(client: Client, message: Message) :
                 @suppvm"""
                 await client.send_message(chat_id=MESSAGE_CHATID , text=TEXT , reply_markup=KEYBOARD_HOME_MARKETER , parse_mode=enums.ParseMode.HTML , disable_web_page_preview=True)
             
-            elif MESSAGE_TEXT == "🖼 چک کردن اعتبار" :
+            elif MESSAGE_TEXT == "💰 چک کردن اعتبار" :
 
                 # Construct the SQL command to update the user's credit
                 sql_command = f"SELECT Credit FROM users WHERE chatid = '{MESSAGE_CHATID}';"
@@ -1872,6 +1873,7 @@ async def SJbot(client: Client, message: Message) :
 
                     TEXT = f"<b>hello your customer ID is {next_customerid} for being a marketer please dm @suppvm </b>"
                     await client.send_message(chat_id=MESSAGE_CHATID , text=TEXT , reply_markup=KEYBOARD_PRIVATE_MESSAGE2 , parse_mode=enums.ParseMode.HTML , disable_web_page_preview=True)
+                
                 else:
                     TEXT = f"for being a marketer please dm @suppvm </b>"
                     await client.send_message(chat_id=MESSAGE_CHATID , text=TEXT , reply_markup=KEYBOARD_PRIVATE_MESSAGE2 , parse_mode=enums.ParseMode.HTML , disable_web_page_preview=True)
