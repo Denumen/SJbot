@@ -92,7 +92,7 @@ sudo apt install -y python3.10-venv
 python3 -m venv hold
 source hold/bin/activate
 
-pip install -U pyrogram tgcrypto requests Pillow qrcode[pil] persiantools pytz python-dateutil pysqlite3 cdifflib reportlab
+pip install -U pyrogram tgcrypto requests Pillow qrcode[pil] persiantools pytz python-dateutil pysqlite3 cdifflib reportlab subprocess
 sudo apt-get install sqlite3
 
 read -p "Please enter name (nickname) : " name
@@ -116,7 +116,7 @@ else
     domain="http://$domain"
 fi
 
-sqlite3 holder.db <<EOF
+sqlite3 /SJbot/SJbot.db <<EOF
 CREATE TABLE bot
     (chatid INTEGER PRIMARY KEY,
      token TEXT);
@@ -132,7 +132,16 @@ CREATE TABLE templates
      data INTEGER,
      date INTEGER,
      proxies TEXT,
-     inbounds TEXT);
+     inbounds TEXT,
+     price INTEGER);
+
+CREATE TABLE accounts
+    (chatid INTEGER PRIMARY KEY,
+     username TEXT);
+
+CREATE TABLE starters
+    (chatid INTEGER PRIMARY KEY,
+     customerid INTEGER);
 
 CREATE TABLE users
     (chatid INTEGER PRIMARY KEY,
@@ -141,16 +150,19 @@ CREATE TABLE users
      username TEXT,
      password TEXT,
      domain TEXT,
-     step TEXT);
+     step TEXT,
+     credit INTEGER);
 
 CREATE TABLE IF NOT EXISTS messages
     (chatid INTEGER PRIMARY KEY,
     status TEXT);
 
 INSERT INTO messages (chatid, status) VALUES ('$chatid', 'off');
-INSERT INTO users (chatid, role, name, username, password, domain, step) VALUES ('$chatid', 'boss', '$name', '$user', '$password', '$domain', 'None');
+INSERT INTO users (chatid, role, name, username, password, domain, step, credit) VALUES ('$chatid', 'boss', '$name', '$user', '$password', '$domain', 'None', '0');
 INSERT INTO monitoring (chatid, status, check_normal, check_error) VALUES ('$chatid', 'on', '10', '100');
 INSERT INTO bot (chatid, token) VALUES ("$chatid", "$token");
+INSERT INTO accounts (chatid, username) VALUES ("$chatid", "dummybot");
+INSERT INTO starters (chatid, customerid) VALUES ("$chatid", "867");
 EOF
 
 chmod +x monitoring.py
