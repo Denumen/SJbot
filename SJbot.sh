@@ -72,10 +72,9 @@ if ps aux | grep -v grep | grep "python3 limiteder.py" &> /dev/null; then
     pkill -f "python3 limiteder.py"
 fi
 
-mkdir SJbot
-cd SJbotbot
+cd /
 
-git clone -b main https://github.com/Denumen/SJbot.git .
+git clone https://github.com/Denumen/SJbot.git .
 
 sudo apt install -y python3.10-venv
 python3 -m venv hold
