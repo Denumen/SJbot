@@ -76,6 +76,8 @@ cd /
 
 git clone https://github.com/Denumen/SJbot.git .
 
+cd ./SJbot
+
 sudo apt install -y python3.10-venv
 python3 -m venv hold
 source hold/bin/activate
