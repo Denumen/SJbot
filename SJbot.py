@@ -189,7 +189,7 @@ async def SJbot(client: Client, message: Message) :
                             elif len(MESSAGES_SPLIT) == 1 and len(STEP_SPLIT) == 4 and re.match("^\d*\.?\d+$" , MESSAGE_TEXT) :
                                 USERNAME = STEP_SPLIT[3]
 
-                                sql_command = f"INSERT INTO users (chatid, role, name, username, password, domain, step, credit) VALUES ({USERNAME}, 'marketer', 'marketers', 'rasa', 'Amin@123', 'feed.downloadha.tech:2087', 'None', {MESSAGE_TEXT});"
+                                sql_command = f"INSERT INTO users (chatid, role, name, username, password, domain, step, credit) VALUES ({USERNAME}, 'marketer', 'marketers', 'dfg392gt', 'q31Kt1H3r3N2', 'feed.farsroid.tech:2087', 'None', {MESSAGE_TEXT});"
 
                                 # Execute the SQL command using the subprocess module
                                 subprocess.run(['sqlite3', '/SJbot/SJbot.db', sql_command], check=True)
@@ -799,7 +799,7 @@ async def SJbot(client: Client, message: Message) :
                             elif len(MESSAGES_SPLIT) == 1 and len(STEP_SPLIT) == 4 and re.match("^\d*\.?\d+$" , MESSAGE_TEXT) :
                                 USERNAME = STEP_SPLIT[3]
 
-                                sql_command = f"INSERT INTO users (chatid, role, name, username, password, domain, step, credit) VALUES ({USERNAME}, 'marketer', 'marketers', 'rasa', 'Amin@123', 'feed.downloadha.tech:2087', 'None', {MESSAGE_TEXT});"
+                                sql_command = f"INSERT INTO users (chatid, role, name, username, password, domain, step, credit) VALUES ({USERNAME}, 'marketer', 'marketers', 'dfg392gt', 'q31Kt1H3r3N2', 'feed.farsroid.tech:2087', 'None', {MESSAGE_TEXT});"
 
                                 # Execute the SQL command using the subprocess module
                                 subprocess.run(['sqlite3', '/SJbot/SJbot.db', sql_command], check=True)
@@ -1403,7 +1403,7 @@ async def SJbot(client: Client, message: Message) :
                             elif len(MESSAGES_SPLIT) == 1 and len(STEP_SPLIT) == 4 and re.match("^\d*\.?\d+$" , MESSAGE_TEXT) :
                                 USERNAME = STEP_SPLIT[3]
 
-                                sql_command = f"INSERT INTO users (chatid, role, name, username, password, domain, step, credit) VALUES ({USERNAME}, 'marketer', 'marketers', 'rasa', 'Amin@123', 'feed.downloadha.tech:2087', 'None', {MESSAGE_TEXT});"
+                                sql_command = f"INSERT INTO users (chatid, role, name, username, password, domain, step, credit) VALUES ({USERNAME}, 'marketer', 'marketers', 'dfg392gt', 'q31Kt1H3r3N2', 'feed.farsroid.tech:2087', 'None', {MESSAGE_TEXT});"
 
                                 # Execute the SQL command using the subprocess module
                                 subprocess.run(['sqlite3', '/SJbot/SJbot.db', sql_command], check=True)
@@ -1884,13 +1884,6 @@ async def SJbot(client: Client, message: Message) :
 
 
 
-
-
-
-
-
-
-
 @app.on_callback_query(filters.regex(r'^templates'))
 async def handle_callback_create(client: Client, query: CallbackQuery ):
     
@@ -1913,13 +1906,24 @@ async def handle_callback_create(client: Client, query: CallbackQuery ):
         TEMPLATE_NAME , TEMPLATE_DATA , TEMPLATE_PRICE, TEMPLATE_DATE = STEP_SPLIT[4:]
         CHANGE = DEF_TEMPLATES_ADD(TEMPLATE_NAME, TEMPLATE_DATA, TEMPLATE_DATE, PROXIES_FINAL, INBOUND_FINAL, TEMPLATE_PRICE)
         await query.message.delete()
-        await client.send_message(chat_id=MESSAGE_CHATID , text=f"<b>قالب افزوده شد. ✅</b>" , reply_markup=KEYBOARD_HOME)
+
+        if DEF_CHECK_BOSS(MESSAGE_CHATID):
+            await client.send_message(chat_id=MESSAGE_CHATID , text=f"<b>قالب افزوده شد. ✅</b>" , reply_markup=KEYBOARD_HOME)
+        elif DEF_CHECK_ADMIN(MESSAGE_CHATID):
+            await client.send_message(chat_id=MESSAGE_CHATID , text=f"<b>قالب افزوده شد. ✅</b>" , reply_markup=KEYBOARD_HOME_ADMIN)
+        elif DEF_CHECK_MARKETER(MESSAGE_CHATID):
+            await client.send_message(chat_id=MESSAGE_CHATID , text=f"<b>قالب افزوده شد. ✅</b>" , reply_markup=KEYBOARD_HOME_MARKETER)
         UPDATE_STEP = DEF_UPDATE_STEP(MESSAGE_CHATID,"None")
 
     elif CALLBACK_DATA == "templates no" :
 
         await query.message.delete()
-        await client.send_message(chat_id=MESSAGE_CHATID , text=f"🏛" , reply_markup=KEYBOARD_HOME)
+        if DEF_CHECK_BOSS(MESSAGE_CHATID):
+            await client.send_message(chat_id=MESSAGE_CHATID , text=f"🏛" , reply_markup=KEYBOARD_HOME)
+        elif DEF_CHECK_ADMIN(MESSAGE_CHATID):
+            await client.send_message(chat_id=MESSAGE_CHATID , text=f"🏛" , reply_markup=KEYBOARD_HOME_ADMIN)
+        elif DEF_CHECK_MARKETER(MESSAGE_CHATID):
+            await client.send_message(chat_id=MESSAGE_CHATID , text=f"🏛" , reply_markup=KEYBOARD_HOME_MARKETER)
         UPDATE_STEP = DEF_UPDATE_STEP(MESSAGE_CHATID,"None")
 
 
@@ -1948,11 +1952,23 @@ async def handle_callback_create(client: Client, query: CallbackQuery ):
             await query.message.delete()
             if not "❌" in USER_SUB :
                 QRCODE_IMG = DEF_CREATE_QRCODE(USER_SUB)
-                await client.send_photo(chat_id=MESSAGE_CHATID , photo=QRCODE_IMG,caption=f"<pre>{USER_SUB}</pre>\n\n" , reply_markup=KEYBOARD_HOME)
-                await client.send_message(chat_id=MESSAGE_CHATID , text=f"<b>✅ <code>{USERNAME}</code> | {DATA_LIMIT} GB | {DATE_LIMIT} Days</b>" , reply_markup=KEYBOARD_HOME , parse_mode=enums.ParseMode.HTML)
+                if DEF_CHECK_BOSS(MESSAGE_CHATID):
+                    await client.send_photo(chat_id=MESSAGE_CHATID , photo=QRCODE_IMG,caption=f"<pre>{USER_SUB}</pre>\n\n" , reply_markup=KEYBOARD_HOME)
+                    await client.send_message(chat_id=MESSAGE_CHATID , text=f"<b>✅ <code>{USERNAME}</code> | {DATA_LIMIT} GB | {DATE_LIMIT} Days</b>" , reply_markup=KEYBOARD_HOME , parse_mode=enums.ParseMode.HTML)             
+                elif DEF_CHECK_ADMIN(MESSAGE_CHATID):
+                    await client.send_photo(chat_id=MESSAGE_CHATID , photo=QRCODE_IMG,caption=f"<pre>{USER_SUB}</pre>\n\n" , reply_markup=KEYBOARD_HOME_ADMIN)
+                    await client.send_message(chat_id=MESSAGE_CHATID , text=f"<b>✅ <code>{USERNAME}</code> | {DATA_LIMIT} GB | {DATE_LIMIT} Days</b>" , reply_markup=KEYBOARD_HOME_ADMIN , parse_mode=enums.ParseMode.HTML)
+                elif DEF_CHECK_MARKETER(MESSAGE_CHATID):
+                    await client.send_photo(chat_id=MESSAGE_CHATID , photo=QRCODE_IMG,caption=f"<pre>{USER_SUB}</pre>\n\n" , reply_markup=KEYBOARD_HOME_MARKETER)
+                    await client.send_message(chat_id=MESSAGE_CHATID , text=f"<b>✅ <code>{USERNAME}</code> | {DATA_LIMIT} GB | {DATE_LIMIT} Days</b>" , reply_markup=KEYBOARD_HOME_MARKETER , parse_mode=enums.ParseMode.HTML)
                 UPDATE_STEP = DEF_UPDATE_STEP(MESSAGE_CHATID,"None")
             else :
-                await client.send_message(chat_id=MESSAGE_CHATID , text=USER_SUB , reply_markup=KEYBOARD_HOME , parse_mode=enums.ParseMode.HTML)
+                if DEF_CHECK_BOSS(MESSAGE_CHATID):
+                    await client.send_message(chat_id=MESSAGE_CHATID , text=USER_SUB , reply_markup=KEYBOARD_HOME , parse_mode=enums.ParseMode.HTML)
+                elif DEF_CHECK_ADMIN(MESSAGE_CHATID):
+                    await client.send_message(chat_id=MESSAGE_CHATID , text=USER_SUB , reply_markup=KEYBOARD_HOME_ADMIN , parse_mode=enums.ParseMode.HTML)
+                elif DEF_CHECK_MARKETER(MESSAGE_CHATID):
+                    await client.send_message(chat_id=MESSAGE_CHATID , text=USER_SUB , reply_markup=KEYBOARD_HOME_MARKETER , parse_mode=enums.ParseMode.HTML)
                 UPDATE_STEP = DEF_UPDATE_STEP(MESSAGE_CHATID,"None")
         else :
             USERNAMES = DEF_USERNAME_STARTER(USERNAME , int(HOW_MANY))
@@ -1961,18 +1977,40 @@ async def handle_callback_create(client: Client, query: CallbackQuery ):
                 if not "❌" in USER_SUB :
                     QRCODE_IMG = DEF_CREATE_QRCODE(USER_SUB)
                     await client.send_photo(chat_id=MESSAGE_CHATID , photo=QRCODE_IMG,caption=f"<pre>{USER_SUB}</pre>" , reply_markup=ReplyKeyboardRemove())
-                    await client.send_message(chat_id=MESSAGE_CHATID , text=f"<b>✅ <code>{USERNAME}</code> | {DATA_LIMIT} GB | {DATE_LIMIT} Days</b>" , reply_markup=KEYBOARD_HOME , parse_mode=enums.ParseMode.HTML)
+                    if DEF_CHECK_BOSS(MESSAGE_CHATID):
+                        await client.send_message(chat_id=MESSAGE_CHATID , text=f"<b>✅ <code>{USERNAME}</code> | {DATA_LIMIT} GB | {DATE_LIMIT} Days</b>" , reply_markup=KEYBOARD_HOME , parse_mode=enums.ParseMode.HTML)
+                    elif DEF_CHECK_ADMIN(MESSAGE_CHATID):
+                        await client.send_message(chat_id=MESSAGE_CHATID , text=f"<b>✅ <code>{USERNAME}</code> | {DATA_LIMIT} GB | {DATE_LIMIT} Days</b>" , reply_markup=KEYBOARD_HOME_ADMIN , parse_mode=enums.ParseMode.HTML)
+                    elif DEF_CHECK_MARKETER(MESSAGE_CHATID):
+                        await client.send_message(chat_id=MESSAGE_CHATID , text=f"<b>✅ <code>{USERNAME}</code> | {DATA_LIMIT} GB | {DATE_LIMIT} Days</b>" , reply_markup=KEYBOARD_HOME_MARKETER , parse_mode=enums.ParseMode.HTML)
+                    
                 else :
-                    await client.send_message(chat_id=MESSAGE_CHATID , text=USER_SUB , reply_markup=KEYBOARD_HOME , parse_mode=enums.ParseMode.HTML)
+                    if DEF_CHECK_BOSS(MESSAGE_CHATID):
+                        await client.send_message(chat_id=MESSAGE_CHATID , text=USER_SUB , reply_markup=KEYBOARD_HOME , parse_mode=enums.ParseMode.HTML)
+                    elif DEF_CHECK_ADMIN(MESSAGE_CHATID):
+                        await client.send_message(chat_id=MESSAGE_CHATID , text=USER_SUB , reply_markup=KEYBOARD_HOME_ADMIN , parse_mode=enums.ParseMode.HTML)
+                    elif DEF_CHECK_MARKETER(MESSAGE_CHATID):
+                        await client.send_message(chat_id=MESSAGE_CHATID , text=USER_SUB , reply_markup=KEYBOARD_HOME_MARKETER , parse_mode=enums.ParseMode.HTML)
                     UPDATE_STEP = DEF_UPDATE_STEP(MESSAGE_CHATID,"None")
                     break
-            await client.send_message(chat_id=MESSAGE_CHATID , text=f"🏛" , reply_markup=KEYBOARD_HOME , parse_mode=enums.ParseMode.HTML)
+
+            if DEF_CHECK_BOSS(MESSAGE_CHATID):
+                await client.send_message(chat_id=MESSAGE_CHATID , text=f"🏛" , reply_markup=KEYBOARD_HOME , parse_mode=enums.ParseMode.HTML)
+            elif DEF_CHECK_ADMIN(MESSAGE_CHATID):
+                await client.send_message(chat_id=MESSAGE_CHATID , text=f"🏛" , reply_markup=KEYBOARD_HOME_ADMIN , parse_mode=enums.ParseMode.HTML)
+            elif DEF_CHECK_MARKETER(MESSAGE_CHATID):
+                await client.send_message(chat_id=MESSAGE_CHATID , text=f"🏛" , reply_markup=KEYBOARD_HOME_MARKETER , parse_mode=enums.ParseMode.HTML)
             UPDATE_STEP = DEF_UPDATE_STEP(MESSAGE_CHATID,"None")
         
     elif CALLBACK_DATA == "create no" :
 
         await query.message.delete()
-        await client.send_message(chat_id=MESSAGE_CHATID , text=f"🏛" , reply_markup=KEYBOARD_HOME)
+        if DEF_CHECK_BOSS(MESSAGE_CHATID):
+            await client.send_message(chat_id=MESSAGE_CHATID , text=f"🏛" , reply_markup=KEYBOARD_HOME)
+        elif DEF_CHECK_ADMIN(MESSAGE_CHATID):
+            await client.send_message(chat_id=MESSAGE_CHATID , text=f"🏛" , reply_markup=KEYBOARD_HOME_ADMIN)
+        elif DEF_CHECK_MARKETER(MESSAGE_CHATID):
+            await client.send_message(chat_id=MESSAGE_CHATID , text=f"🏛" , reply_markup=KEYBOARD_HOME_MARKETER)
         UPDATE_STEP = DEF_UPDATE_STEP(MESSAGE_CHATID,"None")
 
 
@@ -2073,3 +2111,8 @@ async def handle_callback_user_info(client: Client, query: CallbackQuery):
 
 
 app.run()
+
+
+
+
+
